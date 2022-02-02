@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 
-import { COLORS, WEIGHTS } from '../../constants';
+import { WEIGHTS, QUERIES } from '../../constants';
 import Logo from '../Logo';
 import SuperHeader from '../SuperHeader';
 import MobileMenu from '../MobileMenu';
+import Icon from '../Icon';
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -28,7 +29,13 @@ const Header = () => {
           <NavLink href="/women">Women</NavLink>
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
+          <NavLink href="/collections">Moar Collections</NavLink>
         </Nav>
+        <MobileNav>
+          <IconButton><Icon id='shopping-bag' /></IconButton>
+          <IconButton><Icon id='search' /></IconButton>
+          <IconButton onClick={() => setShowMobileMenu((val) => !val)}><Icon id='menu' /></IconButton>
+        </MobileNav>
         <Side />
       </MainHeader>
 
@@ -45,28 +52,56 @@ const MainHeader = styled.div`
   align-items: baseline;
   padding: 18px 32px;
   height: 72px;
-  border-bottom: 1px solid ${COLORS.gray[300]};
+  border-bottom: 1px solid var(--color-gray-300);
+  overflow-x: auto;
 `;
 
 const Nav = styled.nav`
   display: flex;
-  gap: 48px;
+  gap: clamp(
+    1rem,
+    5vw - 2rem,
+    3rem
+  );
   margin: 0px 48px;
+
+  @media ${QUERIES.tabletAndBelow} {
+    display: none;
+  }
+`;
+
+const MobileNav = styled.nav`
+  display: none;
+
+  @media ${QUERIES.tabletAndBelow} {
+    flex: 1000;
+    display: flex;
+    gap: 8px;
+    align-self: center;
+    justify-content: end;
+  }
+`;
+
+const IconButton = styled.button`
+  border: none;
+  background: transparent;
+  cursor: pointer;
 `;
 
 const Side = styled.div`
   flex: 1;
 `;
 
-const NavLink = styled.a`
+export const NavLink = styled.a`
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
-  color: ${COLORS.gray[900]};
+  white-space: nowrap;
+  color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
 
   &:first-of-type {
-    color: ${COLORS.secondary};
+    color: var(--color-secondary);
   }
 `;
 
