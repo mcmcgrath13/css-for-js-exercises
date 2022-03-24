@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/macro';
 
 import { MARKET_DATA, SPORTS_STORIES } from '../../data';
+import { QUERIES } from '../../constants';
 
 import MarketCard from '../MarketCard';
 import SectionTitle from '../SectionTitle';
@@ -47,14 +48,46 @@ const SpecialtyStoryGrid = () => {
 const Wrapper = styled.div`
   display: grid;
   gap: 48px;
+
+  @media ${ QUERIES.laptopAndUp } {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
 `;
 
-const MarketsSection = styled.section``;
+const MarketsSection = styled.section`
+  @media ${ QUERIES.laptopAndUp } {
+    padding-right: 24px;
+    border-right: 1px solid var(--color-gray-300);;
+  }
+`;
 
-const MarketCards = styled.div``;
+const MarketCards = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 
-const SportsSection = styled.section``;
 
-const SportsStories = styled.div``;
+`;
+
+const SportsSection = styled.section`
+  max-width: 100%;
+  overflow: auto;
+
+  @media ${ QUERIES.laptopAndUp } {
+    padding-left: 24px;
+  }
+`;
+
+const SportsStories = styled.div`
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+
+  @media ${QUERIES.tabletAndUp} {
+    grid-auto-flow: column;
+    grid-auto-columns: 220px;
+  }
+`;
 
 export default SpecialtyStoryGrid;
